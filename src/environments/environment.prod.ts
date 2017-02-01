@@ -1,6 +1,3 @@
 export const environment = {
-  production: true,
-  mockedProviders: [
-
-  ]
+  production: true
 };
