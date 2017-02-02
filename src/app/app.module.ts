@@ -1,11 +1,12 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule, ModuleWithProviders, Type } from '@angular/core';
+import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { BaseRequestOptions, Http, HttpModule } from '@angular/http';
-import { MockBackend } from '@angular/http/testing';
-import { environment } from '../environments/environment';;
-
+import { HttpModule } from '@angular/http';
+import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
+import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
+import { DevelopmentBackend } from '../testing/development-backend';
+import { LoadDataService } from './services/load-data.service';
 
 const imports: Array<any> = [
   BrowserModule,
@@ -14,13 +15,8 @@ const imports: Array<any> = [
 ];
 
 if (!environment.production) {
-  imports.push(BaseRequestOptions);
-  imports.push(MockBackend);
-  imports.push({
-    provide: Http,
-    deps: [MockBackend, BaseRequestOptions],
-    useFactory: (backend, options) => new Http(backend, options)
-  });
+  imports.push(
+    InMemoryWebApiModule.forRoot(DevelopmentBackend, { delay: 500 }));
 }
 
 @NgModule({
@@ -28,7 +24,9 @@ if (!environment.production) {
     AppComponent
   ],
   imports: imports,
-  providers: [],
+  providers: [
+    LoadDataService
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

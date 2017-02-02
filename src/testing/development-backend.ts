@@ -1,22 +1,32 @@
-import { BaseRequestOptions, Http, Response, ResponseOptions } from '@angular/http';
-import { MockBackend, MockConnection } from '@angular/http/testing';
-import { getMocks } from './mocks/mocks';
+import { InMemoryDbService } from 'angular2-in-memory-web-api';
+import { Inject } from '@angular/core';
+import { Request } from '@angular/http';
 
-export class DevelopmentBackend {
-  constructor(private backend: MockBackend,
-    private options: BaseRequestOptions) {
-    this.backend.connections.subscribe(this.parseRequest);
+export class DevelopmentBackend implements InMemoryDbService {
+
+  constructor() {
   }
 
-  private requestResponsePair = getMocks();
-
-  private parseRequest(connection: MockConnection) {
-    let url: string = connection.request.url;
-    let body: any = connection.request.getBody();
-    let response = this.requestResponsePair[url];
-    if (!response) {
-      response = new Response(new ResponseOptions({ status: 404 }));
-    }
-    connection.mockRespond(response);
+  createDb() {
+    let jsonData = require('./mock.json');
+    // let jsonData = [
+    //   {
+    //     "id": "1",
+    //     "name": "Windstorm"
+    //   },
+    //   {
+    //     "id": "2",
+    //     "name": "Bombasto"
+    //   },
+    //   {
+    //     "id": "3",
+    //     "name": "Magneta"
+    //   },
+    //   {
+    //     "id": "4",
+    //     "name": "Tornado"
+    //   }
+    // ];
+    return jsonData;
   }
 }
