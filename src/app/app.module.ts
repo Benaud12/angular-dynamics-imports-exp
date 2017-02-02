@@ -5,7 +5,6 @@ import { HttpModule } from '@angular/http';
 import { environment } from '../environments/environment';
 import { AppComponent } from './app.component';
 import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
-import { DevelopmentBackend } from '../testing/development-backend';
 import { LoadDataService } from './services/load-data.service';
 
 const imports: Array<any> = [
@@ -15,8 +14,8 @@ const imports: Array<any> = [
 ];
 
 if (!environment.production) {
-  imports.push(
-    InMemoryWebApiModule.forRoot(DevelopmentBackend, { delay: 500 }));
+  // imports.push(
+  //   InMemoryWebApiModule.forRoot(DevelopmentBackend, { delay: 500 }));
 }
 
 @NgModule({
