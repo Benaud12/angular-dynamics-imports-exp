@@ -7,6 +7,8 @@ import { AppComponent } from './app.component';
 import { InMemoryWebApiModule } from 'angular2-in-memory-web-api';
 import { LoadDataService } from './services/load-data.service';
 
+import { ApiMockModule } from './api-mock/api-mock.module';
+
 const imports: Array<any> = [
   BrowserModule,
   FormsModule,
@@ -14,8 +16,7 @@ const imports: Array<any> = [
 ];
 
 if (!environment.production) {
-  // imports.push(
-  //   InMemoryWebApiModule.forRoot(DevelopmentBackend, { delay: 500 }));
+  imports.push(ApiMockModule.forRoot());
 }
 
 @NgModule({
