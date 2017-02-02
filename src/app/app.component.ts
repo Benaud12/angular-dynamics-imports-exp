@@ -3,8 +3,8 @@ import { LoadDataService } from './services/load-data.service';
 
 @Component({
   selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  templateUrl: './app/app.component.html',
+  styleUrls: ['./app/app.component.css']
 })
 export class AppComponent implements OnInit {
   title = 'app works!';
